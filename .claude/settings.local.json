@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python *)",
+      "Bash(pip install *)",
+      "Bash(curl -s http://localhost:5000)",
+      "Bash(curl *)",
+      "Bash(git add *)"
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Means 聚类实验平台</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>K-Means 聚类实验平台</h1>
+            <p>通过参数实验深入理解无监督学习</p>
+        </header>
+
+        <div class="main-content">
+            <aside class="left-panel">
+                <div class="panel-section">
+                    <h3>数据集</h3>
+                    <select id="dataset-select">
+                        <option value="">选择预设数据集</option>
+                    </select>
+                    <button id="load-dataset" class="btn">加载数据集</button>
+                </div>
+
+                <div class="panel-section">
+                    <h3>参数设置</h3>
+                    <div class="param-group">
+                        <label for="k-value">K 值 (簇数量)</label>
+                        <input type="range" id="k-value" min="1" max="10" value="3">
+                        <span id="k-display">3</span>
+                    </div>
+                    <div class="param-group">
+                        <label for="init-method">初始化方法</label>
+                        <select id="init-method">
+                            <option value="random">随机选择</option>
+                            <option value="kmeans++">K-Means++</option>
+                        </select>
+                    </div>
+                    <div class="param-group">
+                        <label for="max-iter">最大迭代次数</label>
+                        <input type="number" id="max-iter" value="100" min="1" max="1000">
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>控制按钮</h3>
+                    <div class="button-group">
+                        <button id="btn-init" class="btn btn-primary">初始化</button>
+                        <button id="btn-step" class="btn" disabled>单步执行</button>
+                        <button id="btn-run" class="btn" disabled>自动运行</button>
+                        <button id="btn-reset" class="btn btn-danger">重置</button>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="canvas-container">
+                <canvas id="cluster-canvas" width="800" height="600"></canvas>
+                <div class="canvas-hint">点击画布添加数据点，拖拽移动点</div>
+            </main>
+
+            <aside class="right-panel">
+                <div class="panel-section">
+                    <h3>实时指标</h3>
+                    <div class="metric">
+                        <span class="metric-label">迭代次数</span>
+                        <span id="metric-iteration" class="metric-value">0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">SSE (簇内误差)</span>
+                        <span id="metric-sse" class="metric-value">0.00</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">收敛状态</span>
+                        <span id="metric-converged" class="metric-value">未开始</span>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>算法说明</h3>
+                    <div class="algorithm-info">
+                        <p><strong>K-Means 算法步骤：</strong></p>
+                        <ol>
+                            <li>随机选择 K 个初始簇心</li>
+                            <li>将每个点分配到最近的簇心</li>
+                            <li>重新计算每个簇的中心</li>
+                            <li>重复步骤 2-3 直到收敛</li>
+                        </ol>
+                        <p><strong>收敛条件：</strong></p>
+                        <ul>
+                            <li>簇心不再移动</li>
+                            <li>或达到最大迭代次数</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/controls.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/metrics.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
