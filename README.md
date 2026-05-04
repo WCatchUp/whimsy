@@ -33,7 +33,7 @@
 
 1. **克隆或下载项目**
    ```bash
-   git clone [<repository-url>](https://github.com/WCatchUp/whimsy.git)
+   git clone https://github.com/WCatchUp/whimsy.git
    cd Whimsy-github
    ```
 
